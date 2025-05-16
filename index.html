@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TOPSHOP168</title>
+  <title>TOPSHOP168 ดึงข้อมูลกึ่งอัตโนมัติ</title>
   <style>
-    body { font-family: sans-serif; padding: 40px; max-width: 600px; margin: auto; }
-    input, button { font-size: 16px; padding: 10px; width: 100%; margin-bottom: 10px; }
+    body { font-family: sans-serif; padding: 40px; max-width: 700px; margin: auto; }
+    input, textarea, button { font-size: 16px; padding: 10px; width: 100%; margin-bottom: 10px; }
     .card { border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-top: 20px; }
     img { width: 100%; border-radius: 10px; }
     .footer { text-align: center; margin-top: 40px; color: gray; font-size: 14px; }
@@ -15,48 +15,53 @@
 </head>
 <body>
   <h1 style="text-align: center;">TOPSHOP168 พร้อมขายแล้ว!</h1>
-  <p style="text-align: center;">เว็บไซต์นี้ใช้สำหรับดึงสินค้า 1688 / Taobao เพื่อไปขาย Shopee หรือ Ginee ได้ง่าย ๆ</p>
+  <p style="text-align: center;">วางลิงก์ + ก๊อปชื่อ/ราคา/รูปจาก 1688 → เว็บนี้จะจัดข้อมูลให้อัตโนมัติ</p>
   <p style="text-align: center;">📞 ติดต่อ: +66882727597</p>
   <hr/>
 
-  <h2>🔗 วางลิงก์สินค้า</h2>
-  <input id="linkInput" placeholder="วางลิงก์ 1688 หรือ Taobao ที่นี่" />
-  <button onclick="fetchProduct()">ดึงข้อมูลสินค้า</button>
+  <label>🔗 ลิงก์สินค้า:</label>
+  <input id="link" placeholder="วางลิงก์สินค้า 1688/Taobao" />
+
+  <label>🛍️ ชื่อสินค้า:</label>
+  <input id="title" placeholder="ชื่อสินค้า" />
+
+  <label>💰 ราคา (¥ หยวน):</label>
+  <input id="price" placeholder="เช่น ¥105" />
+
+  <label>🧾 รายละเอียดสินค้า:</label>
+  <textarea id="desc" rows="3" placeholder="รายละเอียดสินค้า..."></textarea>
+
+  <label>🖼️ ลิงก์รูปภาพสินค้า:</label>
+  <input id="image" placeholder="วาง URL รูปจาก 1688" />
+
+  <button onclick="renderProduct()">แสดงสินค้า</button>
 
   <div id="result" class="card" style="display:none;">
-    <img id="productImage" src="" alt="Product Image" />
+    <img id="productImage" src="" />
     <h3 id="productTitle"></h3>
     <p id="productPrice"></p>
     <p id="productDesc"></p>
-    <button onclick="copyToClipboard()">📋 คัดลอกข้อมูลสินค้าไป Shopee</button>
-    <p id="copyStatus" style="color:green;"></p>
+    <a id="productLink" href="#" target="_blank">🔗 ไปยังหน้าสินค้า</a>
   </div>
 
   <p class="footer">Powered by MANTOPSHOP</p>
 
   <script>
-    function fetchProduct() {
-      const product = {
-        title: "เสื้อยืดผู้ชายแฟชั่น ลายตัวอักษร PP",
-        price: "¥105",
-        image: "https://img.alicdn.com/imgextra/i3/123456789/TB2abcXYZXXXXXXXXX_!!123456789.jpg",
-        desc: "เสื้อยืดคอกลม แขนสั้น ทรงสตรีท ใส่ได้ทุกฤดู ผ้าฝ้าย 90%"
-      };
-      document.getElementById('productImage').src = product.image;
-      document.getElementById('productTitle').innerText = product.title;
-      document.getElementById('productPrice').innerText = 'ราคา: ' + product.price;
-      document.getElementById('productDesc').innerText = product.desc;
-      document.getElementById('result').style.display = 'block';
-    }
+    function renderProduct() {
+      const link = document.getElementById('link').value;
+      const title = document.getElementById('title').value;
+      const price = document.getElementById('price').value;
+      const desc = document.getElementById('desc').value;
+      const image = document.getElementById('image').value;
 
-    function copyToClipboard() {
-      const text = 
-        document.getElementById('productTitle').innerText + "\n" +
-        document.getElementById('productPrice').innerText + "\n" +
-        document.getElementById('productDesc').innerText;
-      navigator.clipboard.writeText(text);
-      document.getElementById('copyStatus').innerText = "✅ คัดลอกเรียบร้อยแล้ว!";
-      setTimeout(() => document.getElementById('copyStatus').innerText = "", 2000);
+      if (title && price && desc && image) {
+        document.getElementById('productTitle').innerText = title;
+        document.getElementById('productPrice').innerText = 'ราคา: ' + price;
+        document.getElementById('productDesc').innerText = desc;
+        document.getElementById('productImage').src = image;
+        document.getElementById('productLink').href = link;
+        document.getElementById('result').style.display = 'block';
+      }
     }
   </script>
 </body>
