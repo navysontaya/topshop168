@@ -5,11 +5,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TOPSHOP168</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; max-width: 600px; margin: auto; }
+    input, button { font-size: 16px; padding: 10px; width: 100%; margin-bottom: 10px; }
+    .card { border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin-top: 20px; }
+    img { width: 100%; border-radius: 10px; }
+    .footer { text-align: center; margin-top: 40px; color: gray; font-size: 14px; }
+  </style>
 </head>
-<body style="font-family:sans-serif; text-align:center; padding:40px;">
-  <h1>TOPSHOP168 พร้อมขายแล้ว!</h1>
-  <p>เว็บไซต์นี้ใช้สำหรับดึงสินค้า 1688 / Taobao เพื่อไปขาย Shopee หรือ Ginee ได้ง่าย ๆ</p>
-  <p>📞 ติดต่อ: +66882727597</p>
-  <p>Powered by MANTOPSHOP</p>
+<body>
+  <h1 style="text-align: center;">TOPSHOP168 พร้อมขายแล้ว!</h1>
+  <p style="text-align: center;">เว็บไซต์นี้ใช้สำหรับดึงสินค้า 1688 / Taobao เพื่อไปขาย Shopee หรือ Ginee ได้ง่าย ๆ</p>
+  <p style="text-align: center;">📞 ติดต่อ: +66882727597</p>
+  <hr/>
+
+  <h2>🔗 วางลิงก์สินค้า</h2>
+  <input id="linkInput" placeholder="วางลิงก์ 1688 หรือ Taobao ที่นี่" />
+  <button onclick="fetchProduct()">ดึงข้อมูลสินค้า</button>
+
+  <div id="result" class="card" style="display:none;">
+    <img id="productImage" src="" alt="Product Image" />
+    <h3 id="productTitle"></h3>
+    <p id="productPrice"></p>
+    <p id="productDesc"></p>
+    <button onclick="copyToClipboard()">📋 คัดลอกข้อมูลสินค้าไป Shopee</button>
+    <p id="copyStatus" style="color:green;"></p>
+  </div>
+
+  <p class="footer">Powered by MANTOPSHOP</p>
+
+  <script>
+    function fetchProduct() {
+      const product = {
+        title: "เสื้อยืดผู้ชายแฟชั่น ลายตัวอักษร PP",
+        price: "¥105",
+        image: "https://img.alicdn.com/imgextra/i3/123456789/TB2abcXYZXXXXXXXXX_!!123456789.jpg",
+        desc: "เสื้อยืดคอกลม แขนสั้น ทรงสตรีท ใส่ได้ทุกฤดู ผ้าฝ้าย 90%"
+      };
+      document.getElementById('productImage').src = product.image;
+      document.getElementById('productTitle').innerText = product.title;
+      document.getElementById('productPrice').innerText = 'ราคา: ' + product.price;
+      document.getElementById('productDesc').innerText = product.desc;
+      document.getElementById('result').style.display = 'block';
+    }
+
+    function copyToClipboard() {
+      const text = 
+        document.getElementById('productTitle').innerText + "\n" +
+        document.getElementById('productPrice').innerText + "\n" +
+        document.getElementById('productDesc').innerText;
+      navigator.clipboard.writeText(text);
+      document.getElementById('copyStatus').innerText = "✅ คัดลอกเรียบร้อยแล้ว!";
+      setTimeout(() => document.getElementById('copyStatus').innerText = "", 2000);
+    }
+  </script>
 </body>
 </html>
